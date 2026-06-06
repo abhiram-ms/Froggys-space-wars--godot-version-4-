@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/new/levels/level1/level1.tscn" type="PackedScene" id=1]
+
+[node name="level4" instance=ExtResource( 1 )]
+
+[node name="PathFollow2D" parent="CanvasLayer/Path2D" index="0"]
+position = Vector2( -5174.99, -3130 )

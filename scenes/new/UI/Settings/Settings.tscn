@@ -1,0 +1,145 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://FONTS/game_theme.tres" type="Theme" id=1]
+[ext_resource path="res://scenes/new/UI/ParallaxBackground/ParallaxBackground.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/new/UI/Settings/Settings.gd" type="Script" id=3]
+[ext_resource path="res://scenes/new/UI/Settings/CheckButton.gd" type="Script" id=4]
+[ext_resource path="res://FONTS/LineEdit.tres" type="Theme" id=5]
+[ext_resource path="res://scenes/Shaders/material/HologramMaterial.tres" type="Material" id=6]
+
+[node name="Settings" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = 100.0
+offset_right = -50.0
+offset_bottom = -50.0
+scale = Vector2( 1e-05, 1e-05 )
+color = Color( 0.223529, 0.164706, 0.34902, 0.509804 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+offset_left = 47.0
+offset_top = 30.0
+offset_right = -53.0
+offset_bottom = 92.0
+
+[node name="BackButton" type="Button" parent="HBoxContainer"]
+offset_right = 822.0
+offset_bottom = 62.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Back"
+align = 0
+
+[node name="deleteData" type="Button" parent="HBoxContainer"]
+offset_left = 826.0
+offset_right = 1180.0
+offset_bottom = 62.0
+theme = ExtResource( 1 )
+text = "Delete Data"
+align = 2
+
+[node name="Scroll" type="ScrollContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -166.0
+offset_right = 640.0
+offset_bottom = 360.0
+
+[node name="Vbox" type="VBoxContainer" parent="Scroll"]
+offset_right = 1280.0
+offset_bottom = 526.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 50
+
+[node name="Name" type="HBoxContainer" parent="Scroll/Vbox"]
+offset_right = 1280.0
+offset_bottom = 60.0
+size_flags_horizontal = 3
+
+[node name="PlayerName" type="Label" parent="Scroll/Vbox/Name"]
+material = ExtResource( 6 )
+offset_right = 638.0
+offset_bottom = 60.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = ExtResource( 1 )
+text = "Player Name"
+align = 1
+
+[node name="LineEdit" type="LineEdit" parent="Scroll/Vbox/Name"]
+offset_left = 642.0
+offset_right = 942.0
+offset_bottom = 60.0
+custom_minimum_size = Vector2( 300, 0 )
+size_flags_horizontal = 2
+theme = ExtResource( 5 )
+placeholder_text = "Enter Your Name"
+caret_blink = true
+
+[node name="Score" type="HBoxContainer" parent="Scroll/Vbox"]
+offset_top = 110.0
+offset_right = 1280.0
+offset_bottom = 170.0
+size_flags_horizontal = 3
+
+[node name="HighScore" type="Label" parent="Scroll/Vbox/Score"]
+material = ExtResource( 6 )
+offset_right = 638.0
+offset_bottom = 60.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = ExtResource( 1 )
+text = "High sCORE"
+align = 1
+
+[node name="Score" type="Label" parent="Scroll/Vbox/Score"]
+material = ExtResource( 6 )
+offset_left = 642.0
+offset_right = 1280.0
+offset_bottom = 60.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = ExtResource( 1 )
+text = "SCORE"
+
+[node name="Music" type="HBoxContainer" parent="Scroll/Vbox"]
+offset_top = 220.0
+offset_right = 1280.0
+offset_bottom = 284.0
+size_flags_horizontal = 3
+
+[node name="Music" type="Label" parent="Scroll/Vbox/Music"]
+material = ExtResource( 6 )
+offset_right = 638.0
+offset_bottom = 64.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = ExtResource( 1 )
+text = "Music"
+align = 1
+
+[node name="MusicButton" type="CheckButton" parent="Scroll/Vbox/Music"]
+offset_left = 642.0
+offset_right = 706.0
+offset_bottom = 64.0
+size_flags_horizontal = 2
+theme = ExtResource( 1 )
+script = ExtResource( 4 )
+
+[node name="ParallaxBackground" parent="." instance=ExtResource( 2 )]
+
+[connection signal="pressed" from="HBoxContainer/BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/deleteData" to="." method="_on_deleteData_pressed"]
+[connection signal="text_changed" from="Scroll/Vbox/Name/LineEdit" to="." method="_on_LineEdit_text_changed"]
+[connection signal="pressed" from="Scroll/Vbox/Music/MusicButton" to="Scroll/Vbox/Music/MusicButton" method="_on_MusicButton_pressed"]

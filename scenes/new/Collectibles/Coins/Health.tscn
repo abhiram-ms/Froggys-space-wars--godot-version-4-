@@ -1,0 +1,64 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://scenes/new/Collectibles/Coins/Health.gd" type="Script" id=1]
+[ext_resource path="res://Assets/collectibles/health2.png" type="Texture2D" id=2]
+[ext_resource path="res://scenes/new/vfx/Explotion/explotion.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Shaders/backSlash.gdshader" type="Shader" id=4]
+[ext_resource path="res://scenes/Shaders/rotated_planet.tres" type="Shader" id=5]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 35.0
+
+[sub_resource type="Gradient" id=2]
+offsets = PackedFloat32Array( 0, 0.00478469 )
+colors = PackedColorArray( 0, 0, 0, 0, 0.223529, 0.164706, 0.34902, 1 )
+
+[sub_resource type="GradientTexture2D" id=3]
+gradient = SubResource( 2 )
+
+[sub_resource type="FastNoiseLite" id=4]
+
+[sub_resource type="NoiseTexture" id=5]
+seamless = true
+noise = SubResource( 4 )
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = ExtResource( 4 )
+shader_param/scroll_offset = Vector2( 0.1, 0.1 )
+shader_param/scroll_offset2 = Vector2( 0.1, 0.1 )
+shader_param/center = Vector2( 0.5, 0.5 )
+shader_param/amount = 0.3
+shader_param/texture2 = SubResource( 5 )
+shader_param/color_texture = SubResource( 3 )
+
+[sub_resource type="FastNoiseLite" id=7]
+
+[sub_resource type="NoiseTexture" id=8]
+seamless = true
+noise = SubResource( 7 )
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = ExtResource( 5 )
+shader_param/aspect_ratio = 2.0
+shader_param/rotation_speed = 0.3
+shader_param/as_shadow = false
+
+[node name="Health" type="Area2D"]
+script = ExtResource( 1 )
+deathparticle = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Sprite2" type="Sprite2D" parent="."]
+material = SubResource( 6 )
+scale = Vector2( 0.2, 0.2 )
+texture = SubResource( 8 )
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource( 9 )
+scale = Vector2( 0.595794, 0.930556 )
+texture = ExtResource( 2 )
+
+[connection signal="area_entered" from="." to="." method="_on_Health_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_Health_body_entered"]

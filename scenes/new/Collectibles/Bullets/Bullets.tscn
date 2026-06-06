@@ -1,0 +1,80 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://scenes/new/Collectibles/Bullets/Bullets.gd" type="Script" id=1]
+[ext_resource path="res://Assets/collectibles/Bullet_text.png" type="Texture2D" id=2]
+[ext_resource path="res://scenes/Shaders/backSlash.gdshader" type="Shader" id=3]
+[ext_resource path="res://scenes/new/vfx/Explotion/explotion.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/Shaders/rotated_planet.tres" type="Shader" id=5]
+
+[sub_resource type="CircleShape2D" id=11]
+radius = 34.0
+
+[sub_resource type="Gradient" id=7]
+offsets = PackedFloat32Array( 0, 0.114833 )
+colors = PackedColorArray( 0.223529, 0.164706, 0.34902, 0, 0.466667, 0.545098, 0.65098, 1 )
+
+[sub_resource type="GradientTexture2D" id=8]
+gradient = SubResource( 7 )
+
+[sub_resource type="FastNoiseLite" id=9]
+
+[sub_resource type="NoiseTexture" id=10]
+seamless = true
+noise = SubResource( 9 )
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 3 )
+shader_param/scroll_offset = Vector2( 0.1, 0.1 )
+shader_param/scroll_offset2 = Vector2( 0.1, 0.1 )
+shader_param/center = Vector2( 0.5, 0.5 )
+shader_param/amount = 0.25
+shader_param/texture2 = SubResource( 10 )
+shader_param/color_texture = SubResource( 8 )
+
+[sub_resource type="FastNoiseLite" id=5]
+
+[sub_resource type="NoiseTexture" id=6]
+seamless = true
+noise = SubResource( 5 )
+
+[sub_resource type="ShaderMaterial" id=13]
+shader = ExtResource( 5 )
+shader_param/aspect_ratio = 2.0
+shader_param/rotation_speed = 0.3
+shader_param/as_shadow = false
+
+[sub_resource type="OccluderPolygon2D" id=12]
+polygon = PackedVector2Array( -21, -19, -10, -26, 2, -27, 17, -23, 27, -13, 31, -1, 28, 12, 22, 20, 12, 27, -5, 28, -19, 21, -29, 7, -29, -6 )
+
+[node name="BulletsArea" type="Area2D"]
+collision_layer = 13
+collision_mask = 13
+script = ExtResource( 1 )
+bullet_increase = 10
+deathparticle = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 11 )
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+
+[node name="Sprite2" type="Sprite2D" parent="BackBufferCopy"]
+material = SubResource( 4 )
+position = Vector2( 0, -1 )
+scale = Vector2( 0.165801, 0.1489 )
+texture = SubResource( 6 )
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource( 13 )
+position = Vector2( -1, 1 )
+scale = Vector2( 0.661215, 0.861111 )
+texture = ExtResource( 2 )
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Node2D"]
+position = Vector2( -1, 0 )
+occluder = SubResource( 12 )
+
+[connection signal="area_entered" from="." to="." method="_on_BulletsArea_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_BulletsArea_body_entered"]

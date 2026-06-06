@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Assets/levels/levelsbutton/image1.png" type="Texture2D" id=1]
+[ext_resource path="res://FONTS/label_theme.tres" type="Theme" id=2]
+[ext_resource path="res://scenes/new/UI/Levels/LevelsItem/LevelsItem.gd" type="Script" id=3]
+[ext_resource path="res://Assets/levels/levelsbutton/image1_p.png" type="Texture2D" id=4]
+
+[node name="LevelsItem" type="TextureButton"]
+offset_right = 297.0
+offset_bottom = 552.0
+size_flags_horizontal = 0
+texture_normal = ExtResource( 1 )
+texture_disabled = ExtResource( 4 )
+script = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -98.5
+offset_top = -258.0
+offset_right = -34.5
+offset_bottom = -227.0
+size_flags_vertical = 1
+theme = ExtResource( 2 )
+
+[node name="Buttons" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -148.5
+offset_top = -60.0
+offset_right = 148.5
+
+[connection signal="pressed" from="." to="." method="_on_LevelsItem_pressed"]

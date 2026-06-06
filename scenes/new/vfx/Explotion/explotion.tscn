@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Audio/playergun_mini.mp3" type="AudioStream" id=1]
+[ext_resource path="res://scenes/new/vfx/Explotion/gradients/black_and_blue.tres" type="Gradient" id=2]
+[ext_resource path="res://scenes/new/vfx/Explotion/explotion.gd" type="Script" id=3]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.517007, 0.9875 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.0238637 ), 0.0, 0.0, 0, 0 ]
+
+[node name="explode" type="CPUParticles2D"]
+modulate = Color( 2, 2, 2, 1 )
+position = Vector2( 11, 0 )
+emitting = false
+amount = 100
+one_shot = true
+explosiveness = 1.0
+local_coords = false
+emission_shape = 2
+emission_rect_extents = Vector2( 0, 0 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 150.0
+initial_velocity_random = 1.0
+angular_velocity = 720.0
+angular_velocity_random = 1.0
+linear_accel = 60.0
+radial_accel = 100.0
+radial_accel_random = 1.0
+angle = 360.0
+angle_random = 1.0
+scale_amount = 10.0
+scale_amount_random = 1.0
+scale_amount_curve = SubResource( 1 )
+script = ExtResource( 3 )
+gradient = ExtResource( 2 )
+
+[node name="explotion" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 1 )
+volume_db = -5.0
+pitch_scale = 0.3
+autoplay = true
+attenuation = 0.148651

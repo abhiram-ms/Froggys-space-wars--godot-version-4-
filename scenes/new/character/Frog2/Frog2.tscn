@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/new/character/Frog1/Frog1.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Character/Froggy3_bullet.png" type="Texture2D" id=2]
+[ext_resource path="res://scenes/new/character/Frog2/Frog2.gd" type="Script" id=3]
+
+[node name="Frog2" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+
+[node name="Top" parent="." index="0"]
+texture = ExtResource( 2 )
+
+[node name="Gun" parent="Top" index="0"]
+modulate = Color( 1, 1, 1, 0.490196 )
+position = Vector2( 115, 25 )
+
+[node name="thrust" parent="." index="2"]
+position = Vector2( -10, 50 )
+
+[node name="Sprite2D" parent="." index="8"]
+texture = ExtResource( 2 )

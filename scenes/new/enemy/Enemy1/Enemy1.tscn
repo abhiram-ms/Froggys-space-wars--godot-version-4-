@@ -1,0 +1,109 @@
+[gd_scene format=3 uid="uid://d2sjjpo3htfw0"]
+
+[ext_resource type="Texture2D" uid="uid://hlk857hu3di5" path="res://Assets/Character/smallRocket.png" id="1"]
+[ext_resource type="Script" uid="uid://bcqr7xrowomqm" path="res://scenes/new/enemy/Enemy1/Enemy1.gd" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/new/vfx/Explotion/explotion.tscn" id="3"]
+[ext_resource type="Texture2D" uid="uid://022r5gi86ce6" path="res://Assets/Character/character_Bottom.png" id="5"]
+
+[sub_resource type="CapsuleShape2D" id="1"]
+radius = 0.0
+height = 0.0
+
+[sub_resource type="CapsuleShape2D" id="2"]
+radius = 20.0
+height = 40.0
+
+[sub_resource type="Animation" id="3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D/Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.2, 1e-05)]
+}
+
+[sub_resource type="Animation" id="4"]
+resource_name = "showlabel"
+
+[sub_resource type="Animation" id="5"]
+resource_name = "thrust"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D/Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.2, 1e-05), Vector2(0.2, 1.5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ymu0c"]
+_data = {
+&"RESET": SubResource("3"),
+&"showlabel": SubResource("4"),
+&"thrust": SubResource("5")
+}
+
+[node name="Enemy1" type="CharacterBody2D" unique_id=72742136 groups=["enemy"]]
+scale = Vector2(0.2, 0.2)
+collision_layer = 5
+collision_mask = 5
+script = ExtResource("2")
+deathparticle = ExtResource("3")
+
+[node name="Node2D" type="Node2D" parent="." unique_id=540914769]
+
+[node name="gunpos" type="Marker2D" parent="Node2D" unique_id=1268748060]
+position = Vector2(90, 0)
+
+[node name="weaponpos" type="Marker2D" parent="Node2D" unique_id=1513363691]
+position = Vector2(120, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2040088315]
+shape = SubResource("1")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1818189108]
+position = Vector2(90, 2.38419e-07)
+texture = ExtResource("1")
+offset = Vector2(-140.625, -2.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite2D" unique_id=681997020]
+position = Vector2(-190.645, -1.85423)
+rotation = 1.5708
+scale = Vector2(0.2, 1e-05)
+texture = ExtResource("5")
+offset = Vector2(7.7883, 54.972)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=522819367]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=157927093]
+shape = SubResource("2")
+
+[node name="Attack_timer" type="Timer" parent="." unique_id=1923087170]
+wait_time = 0.5
+
+[node name="died" type="Timer" parent="." unique_id=266397546]
+wait_time = 0.2
+
+[node name="LifeTime" type="Timer" parent="." unique_id=1847468016]
+wait_time = 40.0
+one_shot = true
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=526117257]
+libraries/ = SubResource("AnimationLibrary_ymu0c")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="timeout" from="Attack_timer" to="." method="_on_Attack_timer_timeout"]
+[connection signal="timeout" from="died" to="." method="_on_died_timeout"]
+[connection signal="timeout" from="LifeTime" to="." method="_on_LifeTime_timeout"]

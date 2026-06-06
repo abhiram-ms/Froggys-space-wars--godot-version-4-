@@ -1,0 +1,24 @@
+[gd_resource type="Theme" format=3 uid="uid://b7vs6vq7i01xy"]
+
+[ext_resource type="FontFile" uid="uid://cxsbxv8bq1uds" path="res://FONTS/neo_scifi_v20.ttf" id="1"]
+
+[sub_resource type="FontFile" id="1"]
+fallbacks = Array[Font]([ExtResource("1")])
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[resource]
+default_font = SubResource("1")
+Label/colors/font_color = Color(0.466667, 0.545098, 0.65098, 1)

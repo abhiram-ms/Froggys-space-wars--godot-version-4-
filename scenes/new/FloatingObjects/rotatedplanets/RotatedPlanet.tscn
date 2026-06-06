@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/Shaders/rotated_planet.tres" type="Shader" id=1]
+[ext_resource path="res://Assets/texture/texture5.png" type="Texture2D" id=2]
+[ext_resource path="res://scenes/new/FloatingObjects/rotatedplanets/RotatedPlanet.gd" type="Script" id=3]
+[ext_resource path="res://scenes/new/vfx/Explotion/explotion.tscn" type="PackedScene" id=5]
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 62.0081
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 1 )
+shader_param/aspect_ratio = 2.0
+shader_param/rotation_speed = 0.3
+shader_param/as_shadow = false
+
+[node name="RotatedPlanet" type="Area2D"]
+collision_layer = 13
+collision_mask = 13
+script = ExtResource( 3 )
+deathparticle = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 3 )
+
+[node name="Sprite3" type="Sprite2D" parent="."]
+material = SubResource( 2 )
+scale = Vector2( 0.232656, 0.230937 )
+texture = ExtResource( 2 )
+
+[connection signal="area_entered" from="." to="." method="_on_Area2D_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_RotatedPlanet_body_entered"]

@@ -1,0 +1,125 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[admob]
+
+config={
+"banner": {
+"position": 1,
+"respect_safe_area": true,
+"show_instantly": true,
+"size": "BANNER",
+"unit_ids": {
+"Android": {
+"standard": "ca-app-pub-3940256099942544/6300978111"
+},
+"iOS": {
+"standard": "ca-app-pub-3940256099942544/2934735716"
+}
+}
+},
+"debug": {
+"is_debug_on_release": false,
+"is_real": true,
+"is_test_europe_user_consent": false
+},
+"general": {
+"is_enabled": true,
+"is_for_child_directed_treatment": false,
+"max_ad_content_rating": "PG"
+},
+"interstitial": {
+"unit_ids": {
+"Android": {
+"standard": "ca-app-pub-4990232147628609/1770052717"
+},
+"iOS": {
+"standard": "ca-app-pub-3940256099942544/4411468910"
+}
+}
+},
+"rewarded": {
+"unit_ids": {
+"Android": {
+"standard": "ca-app-pub-4990232147628609/5011880458"
+},
+"iOS": {
+"standard": "ca-app-pub-3940256099942544/1712485313"
+}
+}
+},
+"rewarded_interstitial": {
+"unit_ids": {
+"Android": {
+"standard": "ca-app-pub-3940256099942544/5354046379"
+},
+"iOS": {
+"standard": "ca-app-pub-3940256099942544/6978759866"
+}
+}
+}
+}
+
+[application]
+
+config/name="Froggys Space Wars"
+run/main_scene="res://scenes/new/UI/LogIn/LogIn.tscn"
+config/quit_on_go_back=false
+config/features=PackedStringArray("4.6")
+boot_splash/bg_color=Color(0.223529, 0.164706, 0.34902, 1)
+boot_splash/stretch_mode=0
+boot_splash/image="res://Assets/backgrounds/foreground/BigPlanet.png"
+config/icon="res://Assets/backgrounds/foreground/BigPlanet.png"
+
+[autoload]
+
+PlayService="*res://scenes/GlobalScripts/PlayGamesServices/GPGSscript.gd"
+SaveFile="*res://scenes/GlobalScripts/SaveFile.gd"
+Global="*res://scenes/GlobalScripts/global.gd"
+Livescounter="*res://scenes/GlobalScripts/livescounter.gd"
+BackgroundMusic="*res://scenes/new/Audio/BackgroundMusic.tscn"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="2d"
+window/stretch/aspect="expand"
+
+[editor_plugins]
+
+enabled=PackedStringArray()
+
+[gui]
+
+common/drop_mouse_on_gui_input_disabled=true
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
+[layer_names]
+
+2d_physics/layer_3="Lasers"
+2d_physics/layer_4="Bullets"
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true
+environment/defaults/default_environment="res://default_env.tres"
+quality/driver/driver_name="GLES2"
+quality/driver/fallback_to_gles2=true
+vram_compression/import_etc=true
+gles2/compatibility/enable_high_float.Android=true

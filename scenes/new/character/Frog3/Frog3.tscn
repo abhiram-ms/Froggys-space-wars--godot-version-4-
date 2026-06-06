@@ -1,0 +1,58 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/new/character/Frog1/Frog1.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/new/character/Frog3/Frog3.gd" type="Script" id=2]
+[ext_resource path="res://Assets/weapons/lightSaber.png" type="Texture2D" id=3]
+[ext_resource path="res://scenes/Shaders/Hologram2.tres" type="Shader" id=4]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 4 )
+shader_param/lines = 100
+shader_param/color1 = Plane( 0, 0, 1, 1 )
+shader_param/color2 = Plane( 0, 0, 0, 1 )
+shader_param/speed = 0.4
+shader_param/alpha = 0.5
+shader_param/noise_amount = 0.05
+shader_param/effect_factor = 0.4
+
+[sub_resource type="Animation" id=2]
+resource_name = "fireduty"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PackedFloat32Array( 0, 0.4, 0.7, 1 ),
+"transitions": PackedFloat32Array( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -50.0, -315.0, -360.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:is_firing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PackedFloat32Array( 0, 1 ),
+"transitions": PackedFloat32Array( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[node name="Frog3" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+speed = 0
+is_firing = true
+
+[node name="Gun" parent="Top" index="0"]
+material = SubResource( 1 )
+position = Vector2( 65.0001, -55 )
+rotation = -0.785398
+texture = ExtResource( 3 )
+offset = Vector2( 189.155, -1.17344 )
+
+[node name="AnimationPlayer" parent="." index="6"]
+anims/fireduty = SubResource( 2 )

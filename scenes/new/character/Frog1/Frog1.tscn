@@ -1,0 +1,308 @@
+[gd_scene format=3 uid="uid://dtass27o86nao"]
+
+[ext_resource type="PackedScene" path="res://scenes/new/vfx/CameraShake/CameraShakeComponent.tscn" id="1"]
+[ext_resource type="Script" uid="uid://dqsr8jg24t8xb" path="res://scenes/new/character/Frog1/Frog1.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://cbykmumapnf6i" path="res://Assets/Character/character_Gun.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://022r5gi86ce6" path="res://Assets/Character/character_Bottom.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://btxv7aq38e60q" path="res://Assets/Character/character_Top.png" id="5"]
+[ext_resource type="PackedScene" path="res://scenes/new/controls/JoyStick/JoyStick.tscn" id="6"]
+[ext_resource type="Texture2D" uid="uid://bkhlnt22dgtsb" path="res://Assets/weapons/Glare.png" id="7"]
+
+[sub_resource type="CapsuleShape2D" id="1"]
+radius = 5.0
+height = 10.0
+
+[sub_resource type="Gradient" id="5"]
+offsets = PackedFloat32Array(0.5, 1)
+colors = PackedColorArray(0.223529, 0.164706, 0.34902, 1, 0.466667, 0.545098, 0.65098, 1)
+
+[sub_resource type="CapsuleShape2D" id="4"]
+radius = 0.005
+height = 0.01
+
+[sub_resource type="CircleShape2D" id="6"]
+radius = 1200.0
+
+[sub_resource type="Animation" id="7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Top/Thrust:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.117647)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Top/Thrust:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1e-05)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("thrust:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Top/Gun/Node2D/weapon/lightOnFire:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.5, 1.2, 2, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Top/Gun/Node2D/weapon/lightOnFire:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Top:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".:rotation_degrees")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath(".:is_firing")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="9"]
+resource_name = "gunFire"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Top/Gun/Node2D/weapon/lightOnFire:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.501961, 1.2, 2, 1), Color(0.501961, 1.2, 2, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Top/Gun/Node2D/weapon/lightOnFire:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="11"]
+resource_name = "showLabel"
+length = 0.5
+
+[sub_resource type="Animation" id="10"]
+resource_name = "takeDamage"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Top:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.956863, 0.290196, 0.290196, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="8"]
+resource_name = "thrust"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Top/Thrust:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.117647), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Top/Thrust:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.3, 1e-05), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("thrust:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fmahy"]
+_data = {
+&"RESET": SubResource("7"),
+&"gunFire": SubResource("9"),
+&"showLabel": SubResource("11"),
+&"takeDamage": SubResource("10"),
+&"thrust": SubResource("8")
+}
+
+[node name="Frog" type="CharacterBody2D" unique_id=1383838797]
+scale = Vector2(0.2, 0.2)
+script = ExtResource("2")
+speed = 350
+
+[node name="CameraShakeComponent" parent="." unique_id=450236947 instance=ExtResource("1")]
+
+[node name="Top" type="Sprite2D" parent="." unique_id=228131662]
+texture = ExtResource("5")
+
+[node name="Gun" type="Sprite2D" parent="Top" unique_id=457835085]
+position = Vector2(95, 30)
+scale = Vector2(1, 0.8)
+texture = ExtResource("3")
+offset = Vector2(25, 1.25)
+
+[node name="Node2D" type="Node2D" parent="Top/Gun" unique_id=267707073]
+position = Vector2(-95, -37.5)
+scale = Vector2(1, 1.25)
+
+[node name="gunpos" type="Marker2D" parent="Top/Gun/Node2D" unique_id=20343805]
+position = Vector2(103, 31)
+
+[node name="weapon" type="Marker2D" parent="Top/Gun/Node2D" unique_id=287160055]
+position = Vector2(121, 31)
+
+[node name="lightOnFire" type="Sprite2D" parent="Top/Gun/Node2D/weapon" unique_id=1411856655]
+visible = false
+modulate = Color(0.5, 1.2, 2, 0)
+position = Vector2(-1, -1)
+scale = Vector2(3, 3)
+texture = ExtResource("7")
+offset = Vector2(12.5, 0)
+
+[node name="laserpos" type="Marker2D" parent="Top/Gun/Node2D" unique_id=412588677]
+position = Vector2(200, 0)
+
+[node name="Thrust" type="Sprite2D" parent="Top" unique_id=32342321]
+modulate = Color(1, 1, 1, 0.117647)
+position = Vector2(0, 100)
+scale = Vector2(1, 1e-05)
+texture = ExtResource("4")
+offset = Vector2(0, 55)
+
+[node name="collisionshape" type="CollisionShape2D" parent="." unique_id=200965040]
+shape = SubResource("1")
+
+[node name="thrust" type="CPUParticles2D" parent="." unique_id=773810399]
+position = Vector2(0, 110)
+emitting = false
+amount = 100
+lifetime = 1.5
+one_shot = true
+randomness = 0.3
+emission_shape = 2
+emission_sphere_radius = 1.0
+color_ramp = SubResource("5")
+
+[node name="GetHit" type="Area2D" parent="." unique_id=1094987695]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GetHit" unique_id=821584005]
+shape = SubResource("4")
+
+[node name="enemy_attract" type="Area2D" parent="." unique_id=1790825785]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy_attract" unique_id=27636748]
+shape = SubResource("6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=484081820]
+libraries/ = SubResource("AnimationLibrary_fmahy")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=722584293]
+
+[node name="JoyStick" parent="CanvasLayer" unique_id=470114060 instance=ExtResource("6")]
+layout_mode = 3
+anchors_preset = 15
+
+[node name="Timer" type="Timer" parent="." unique_id=1535510864]
+wait_time = 10.0
+
+[connection signal="body_entered" from="GetHit" to="." method="_on_GetHit_body_entered"]
+[connection signal="body_entered" from="enemy_attract" to="." method="_on_enemy_attract_body_entered"]
+[connection signal="body_exited" from="enemy_attract" to="." method="_on_enemy_attract_body_exited"]
+[connection signal="swipe_detect" from="CanvasLayer/JoyStick" to="." method="_on_JoyStick_swipe_detect"]
+[connection signal="swipe_end" from="CanvasLayer/JoyStick" to="." method="_on_JoyStick_swipe_end"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -1,0 +1,171 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://scenes/Shaders/screenSpaceShaders/images/vignette.png" type="Texture2D" id=1]
+[ext_resource path="res://scenes/Shaders/screenSpaceShaders/vignette.gdshader" type="Shader" id=2]
+[ext_resource path="res://scenes/Shaders/screenSpaceShaders/mirage.gdshader" type="Shader" id=3]
+[ext_resource path="res://scenes/Shaders/shockwave.gdshader" type="Shader" id=4]
+[ext_resource path="res://scenes/new/vfx/ShaderScreen/ShaderScreen.gd" type="Script" id=5]
+[ext_resource path="res://scenes/Shaders/screenSpaceShaders/pixelize.gdshader" type="Shader" id=6]
+[ext_resource path="res://scenes/Shaders/greyScale.gdshader" type="Shader" id=8]
+[ext_resource path="res://scenes/Shaders/screenSpaceShaders/contrasted.gdshader" type="Shader" id=10]
+[ext_resource path="res://scenes/Shaders/screenSpaceShaders/sepia.gdshader" type="Shader" id=11]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 2 )
+shader_param/vignette = ExtResource( 1 )
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 3 )
+shader_param/frequency = 60.0
+shader_param/depth = 0.005
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 8 )
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 6 )
+shader_param/size_x = 0.008
+shader_param/size_y = 0.008
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = ExtResource( 10 )
+
+[sub_resource type="ShaderMaterial" id=8]
+shader = ExtResource( 11 )
+shader_param/base = Color( 0.0862745, 0.717647, 0.717647, 0.596078 )
+
+[sub_resource type="ShaderMaterial" id=10]
+shader = ExtResource( 4 )
+shader_param/global_position = null
+shader_param/screen_size = Vector2( 1000, 1000 )
+shader_param/force = 0.346
+shader_param/size = 18.545
+shader_param/thickness = 0.832
+
+[sub_resource type="Shader" id=11]
+code = "shader_type canvas_item;
+
+// for circles
+uniform float amplitude: hint_range(0, 2, 0.01) = 2.0;
+uniform float frequency: hint_range(0, 15, 0.01) = 12.69;
+uniform float rippleRate : hint_range(0.5, 150.0, 0.1) = 9.2;
+
+
+// for wave
+uniform float waveAmplitude = 0.1;
+uniform float waveFrequency = 4.0;
+uniform float blendingAmount = 0.6;
+
+
+// other
+uniform sampler2D noise;
+
+
+
+vec2 wave(vec2 uv, float time) {
+    return vec2(
+        uv.x + sin(uv.y * waveFrequency * 5.0 + time) * waveAmplitude,
+        uv.y + sin(uv.x * waveFrequency + time) * waveAmplitude
+    );
+}
+
+void fragment() {
+	vec2 wave_uv = wave(UV, TIME);
+	vec4 ns = texture(noise, wave_uv);
+	
+	vec2 motion = vec2(0.0, 1.0);
+	float pi = 3.14159265358979323846;
+	vec2 uv = UV * 2.0 - 1.0;
+
+	float dist = length(uv);
+	ns *= 1.4142135;
+	dist += -0.1 * ns.x;
+	float ripple = sin(dist * -frequency * pi + rippleRate * TIME) * amplitude / (dist + 1.0);
+
+
+	vec4 color = vec4(1.0, 1.0, 1.0, 2.0 * ripple);
+	
+	float alphaScalar = (1.0 - min(dist, 1.0)) * ns.x * 2.5; 
+
+
+	color.a *= 1.0 * alphaScalar * (ripple + ns.x * ns.y);
+	color.a = max(color.a - (ns.y * 0.45), 0.0);
+
+    COLOR = color;
+}"
+
+[sub_resource type="FastNoiseLite" id=12]
+
+[sub_resource type="NoiseTexture" id=13]
+noise = SubResource( 12 )
+
+[sub_resource type="ShaderMaterial" id=14]
+shader = SubResource( 11 )
+shader_param/amplitude = 2.0
+shader_param/frequency = 12.69
+shader_param/rippleRate = 9.2
+shader_param/waveAmplitude = 0.1
+shader_param/waveFrequency = 4.0
+shader_param/blendingAmount = 0.6
+shader_param/noise = SubResource( 13 )
+
+[node name="ShaderScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 5 )
+
+[node name="Vignette" type="ColorRect" parent="."]
+visible = false
+material = SubResource( 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Mirage" type="ColorRect" parent="."]
+visible = false
+material = SubResource( 2 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="GreyScale" type="ColorRect" parent="."]
+visible = false
+material = SubResource( 3 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Pixel" type="ColorRect" parent="."]
+visible = false
+material = SubResource( 4 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Contrast" type="ColorRect" parent="."]
+visible = false
+material = SubResource( 7 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Sepia" type="ColorRect" parent="."]
+visible = false
+material = SubResource( 8 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Shockwave" type="ColorRect" parent="."]
+visible = false
+material = SubResource( 10 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="wave" type="ColorRect" parent="."]
+visible = false
+material = SubResource( 14 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ShaderTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="timeout" from="ShaderTimer" to="." method="_on_ShaderTimer_timeout"]

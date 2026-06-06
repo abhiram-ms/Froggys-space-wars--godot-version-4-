@@ -1,0 +1,84 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Assets/other assets/1joystick.png" type="Texture2D" id=1]
+[ext_resource path="res://Assets/other assets/100joystick.png" type="Texture2D" id=2]
+[ext_resource path="res://scenes/new/controls/JoyStick/JoyStick.gd" type="Script" id=3]
+[ext_resource path="res://Assets/other assets/pressed.png" type="Texture2D" id=4]
+[ext_resource path="res://Assets/other assets/not_pressed.png" type="Texture2D" id=5]
+[ext_resource path="res://Assets/icons/Back.png" type="Texture2D" id=6]
+[ext_resource path="res://Assets/icons/fire_icon.png" type="Texture2D" id=7]
+
+[node name="JoyStick" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+
+[node name="Background" type="TextureRect" parent="."]
+modulate = Color( 0.819608, 0.670588, 0.670588, 0.196078 )
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 90.0
+offset_top = -450.0
+offset_right = 346.0
+offset_bottom = -194.0
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 1 )
+
+[node name="Handle" type="TextureRect" parent="Background"]
+modulate = Color( 0.396078, 0.537255, 0.611765, 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+texture = ExtResource( 2 )
+
+[node name="AreaClickButton" type="TextureButton" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -497.0
+offset_right = 582.0
+
+[node name="Control" type="Control" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+
+[node name="Fire" type="TouchScreenButton" parent="Control"]
+modulate = Color( 1, 1, 1, 0.196078 )
+position = Vector2( -257, -271 )
+scale = Vector2( 0.5, 0.5 )
+normal = ExtResource( 5 )
+pressed = ExtResource( 4 )
+
+[node name="Special" type="TouchScreenButton" parent="Control"]
+modulate = Color( 0.72549, 0.733333, 0.741176, 0.643137 )
+position = Vector2( -153, -420 )
+scale = Vector2( 1.5, 1.5 )
+normal = ExtResource( 7 )
+pressed = ExtResource( 6 )
+
+[node name="vfxText" type="RichTextLabel" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -359.0
+offset_top = 100.0
+offset_right = 422.0
+offset_bottom = 178.0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[connection signal="button_down" from="AreaClickButton" to="." method="_on_AreaClickButton_button_down"]
+[connection signal="button_up" from="AreaClickButton" to="." method="_on_AreaClickButton_button_up"]
+[connection signal="pressed" from="Control/Fire" to="." method="_on_TouchScreenButton_pressed"]
+[connection signal="pressed" from="Control/Special" to="." method="_on_Dash_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -1,0 +1,95 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://scenes/new/UI/Levels/LevelsItem/LevelsItem.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/levels/levelsbutton/image2_p.png" type="Texture2D" id=2]
+[ext_resource path="res://Assets/levels/levelsbutton/image2.png" type="Texture2D" id=3]
+[ext_resource path="res://Assets/levels/levelsbutton/image3_p.png" type="Texture2D" id=4]
+[ext_resource path="res://Assets/levels/levelsbutton/image5.png" type="Texture2D" id=5]
+[ext_resource path="res://Assets/levels/levelsbutton/image5_p.png" type="Texture2D" id=6]
+[ext_resource path="res://Assets/levels/levelsbutton/image4_p.png" type="Texture2D" id=7]
+[ext_resource path="res://Assets/levels/levelsbutton/image3.png" type="Texture2D" id=9]
+[ext_resource path="res://Assets/levels/levelsbutton/image4.png" type="Texture2D" id=10]
+[ext_resource path="res://Assets/backgrounds/new parallax/Background.png" type="Texture2D" id=11]
+[ext_resource path="res://scenes/new/UI/Levels/Levels.gd" type="Script" id=12]
+[ext_resource path="res://FONTS/button_theme.tres" type="Theme" id=13]
+[ext_resource path="res://scenes/new/UI/Levels/LevelsContainer.gd" type="Script" id=14]
+[ext_resource path="res://FONTS/tab_theme.tres" type="Theme" id=15]
+
+[node name="Levels" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 12 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 11 )
+expand = true
+
+[node name="LevelsContainer" type="ScrollContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = 50.0
+mouse_filter = 1
+theme = ExtResource( 15 )
+follow_focus = true
+script = ExtResource( 14 )
+
+[node name="CenterContainer" type="CenterContainer" parent="LevelsContainer"]
+offset_right = 1899.0
+offset_bottom = 670.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="LevelsContainer/CenterContainer"]
+offset_top = 59.0
+offset_right = 1899.0
+offset_bottom = 611.0
+mouse_filter = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LevelsContainer/CenterContainer/MarginContainer"]
+offset_right = 1899.0
+offset_bottom = 552.0
+theme_override_constants/separation = 100
+
+[node name="1" parent="LevelsContainer/CenterContainer/MarginContainer/HBoxContainer" instance=ExtResource( 1 )]
+
+[node name="2" parent="LevelsContainer/CenterContainer/MarginContainer/HBoxContainer" instance=ExtResource( 1 )]
+offset_left = 397.0
+offset_right = 697.0
+texture_normal = ExtResource( 3 )
+texture_disabled = ExtResource( 2 )
+index = 2
+
+[node name="3" parent="LevelsContainer/CenterContainer/MarginContainer/HBoxContainer" instance=ExtResource( 1 )]
+offset_left = 797.0
+offset_right = 1096.0
+texture_normal = ExtResource( 9 )
+texture_disabled = ExtResource( 4 )
+index = 3
+
+[node name="4" parent="LevelsContainer/CenterContainer/MarginContainer/HBoxContainer" instance=ExtResource( 1 )]
+offset_left = 1196.0
+offset_right = 1495.0
+texture_normal = ExtResource( 10 )
+texture_disabled = ExtResource( 7 )
+index = 4
+
+[node name="5" parent="LevelsContainer/CenterContainer/MarginContainer/HBoxContainer" instance=ExtResource( 1 )]
+offset_left = 1595.0
+offset_right = 1899.0
+texture_normal = ExtResource( 5 )
+texture_disabled = ExtResource( 6 )
+index = 5
+
+[node name="BackButton" type="Button" parent="."]
+offset_left = 45.0
+offset_top = 23.0
+offset_right = 153.0
+offset_bottom = 68.0
+theme = ExtResource( 13 )
+text = "Back"
+
+[connection signal="pressed" from="BackButton" to="." method="_on_BackButton_pressed"]

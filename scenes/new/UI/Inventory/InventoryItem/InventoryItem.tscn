@@ -1,0 +1,74 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://FONTS/game_theme.tres" type="Theme" id=1]
+[ext_resource path="res://Assets/Character/inventory/level1.png" type="Texture2D" id=2]
+[ext_resource path="res://FONTS/label_theme.tres" type="Theme" id=3]
+[ext_resource path="res://scenes/new/UI/Inventory/InventoryItem/InventoryItem.gd" type="Script" id=4]
+
+[sub_resource type="Environment" id=1]
+glow_enabled = true
+glow_hdr_threshold = 2.0
+
+[node name="InventoryItem" type="TextureRect"]
+offset_right = 304.0
+offset_bottom = 453.0
+texture = ExtResource( 2 )
+script = ExtResource( 4 )
+amount = 100
+index = 1
+
+[node name="particles" type="CPUParticles2D" parent="."]
+modulate = Color( 1.5, 1.5, 2, 1 )
+position = Vector2( 143, 5 )
+amount = 50
+emission_shape = 2
+emission_rect_extents = Vector2( 140, 0 )
+spread = 180.0
+gravity = Vector2( 0, 900 )
+initial_velocity_random = 1.0
+orbit_velocity_random = 1.0
+linear_accel_random = 1.0
+angle = 84.7
+angle_random = 1.0
+scale_amount = 5.0
+
+[node name="amount" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -17.0
+offset_top = -146.0
+offset_right = 47.0
+offset_bottom = -115.0
+size_flags_vertical = 1
+theme = ExtResource( 3 )
+text = "100"
+
+[node name="Buttons" type="HBoxContainer" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -88.0
+offset_bottom = -10.0
+
+[node name="Get" type="Button" parent="Buttons"]
+offset_right = 150.0
+offset_bottom = 78.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Get"
+
+[node name="Use" type="Button" parent="Buttons"]
+offset_left = 154.0
+offset_right = 304.0
+offset_bottom = 78.0
+size_flags_horizontal = 3
+theme = ExtResource( 1 )
+text = "Use"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 1 )
+
+[connection signal="pressed" from="Buttons/Get" to="." method="_on_Get_pressed"]
+[connection signal="pressed" from="Buttons/Use" to="." method="_on_Use_pressed"]

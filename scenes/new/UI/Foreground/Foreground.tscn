@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Assets/planets/planet.png" type="Texture2D" id=1]
+
+[node name="Foreground" type="ParallaxBackground"]
+layer = 1
+scale = Vector2( 0.8, 0.8 )
+transform = Transform2D( 0.8, 0, 0, 0.8, 0, 0 )
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2( 5000, 5000 )
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer"]
+position = Vector2( -468, 120 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 1 )
+centered = false

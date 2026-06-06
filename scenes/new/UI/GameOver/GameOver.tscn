@@ -1,0 +1,338 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://FONTS/label_theme.tres" type="Theme" id=1]
+[ext_resource path="res://FONTS/game_theme.tres" type="Theme" id=2]
+[ext_resource path="res://scenes/new/UI/GameOver/GameOver.gd" type="Script" id=3]
+[ext_resource path="res://Assets/icons/Levels.png" type="Texture2D" id=4]
+[ext_resource path="res://Assets/icons/Levels_pressed.png" type="Texture2D" id=5]
+[ext_resource path="res://Assets/icons/Home.png" type="Texture2D" id=6]
+[ext_resource path="res://Assets/icons/Home_Pressed.png" type="Texture2D" id=7]
+[ext_resource path="res://Assets/icons/Play1.png" type="Texture2D" id=8]
+[ext_resource path="res://Assets/icons/Play1_p.png" type="Texture2D" id=9]
+[ext_resource path="res://Audio/glitch1-6219.mp3" type="AudioStream" id=10]
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("background:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("background:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("VBoxContainer/GameOver:percent_visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("VBoxContainer/HighScore:percent_visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("VBoxContainer/Score:percent_visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("VBoxContainer/Kills:percent_visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("VBoxContainer/Damage:percent_visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("AudioStreamPlayer:playing")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
+"update": 0,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "intro"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("background:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("background:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PackedFloat32Array( 0, 0.1, 0.3 ),
+"transitions": PackedFloat32Array( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ), Vector2( 0.2, 1 ), Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("VBoxContainer/GameOver:percent_visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PackedFloat32Array( 0, 0.3, 1 ),
+"transitions": PackedFloat32Array( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 1.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("VBoxContainer/HighScore:percent_visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PackedFloat32Array( 0, 0.5, 1 ),
+"transitions": PackedFloat32Array( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 1.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("VBoxContainer/Score:percent_visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PackedFloat32Array( 0, 0.7, 1.3 ),
+"transitions": PackedFloat32Array( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 1.0 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("VBoxContainer/Kills:percent_visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PackedFloat32Array( 0, 0.9, 1.3 ),
+"transitions": PackedFloat32Array( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 1.0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("VBoxContainer/Damage:percent_visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PackedFloat32Array( 0, 1, 1.5 ),
+"transitions": PackedFloat32Array( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 1.0 ]
+}
+tracks/7/type = "audio"
+tracks/7/path = NodePath("AudioStreamPlayer")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"clips": [  ],
+"times": PackedFloat32Array(  )
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("AudioStreamPlayer:playing")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PackedFloat32Array( 0, 1.4 ),
+"transitions": PackedFloat32Array( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[node name="GameOver" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+
+[node name="background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = 50.0
+offset_right = -50.0
+offset_bottom = -50.0
+scale = Vector2( 1e-05, 1e-05 )
+color = Color( 0.223529, 0.164706, 0.34902, 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -275.5
+offset_top = -222.5
+offset_right = 275.5
+offset_bottom = 222.5
+
+[node name="GameOver" type="Label" parent="VBoxContainer"]
+offset_right = 551.0
+offset_bottom = 91.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.5
+theme = ExtResource( 2 )
+text = "Game Over"
+align = 1
+percent_visible = 0.0
+
+[node name="HighScore" type="Label" parent="VBoxContainer"]
+offset_top = 95.0
+offset_right = 551.0
+offset_bottom = 155.0
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+text = "HighScore"
+percent_visible = 0.0
+
+[node name="Score" type="Label" parent="VBoxContainer"]
+offset_top = 159.0
+offset_right = 551.0
+offset_bottom = 220.0
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+text = "Score"
+percent_visible = 0.0
+
+[node name="Kills" type="Label" parent="VBoxContainer"]
+offset_top = 224.0
+offset_right = 551.0
+offset_bottom = 285.0
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+text = "Kills"
+percent_visible = 0.0
+
+[node name="Damage" type="Label" parent="VBoxContainer"]
+offset_top = 289.0
+offset_right = 551.0
+offset_bottom = 349.0
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+text = "Damage"
+percent_visible = 0.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+offset_top = 353.0
+offset_right = 551.0
+offset_bottom = 445.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.5
+
+[node name="PlayAgain" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
+offset_right = 165.0
+offset_bottom = 92.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 2 )
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 9 )
+
+[node name="Levels" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
+offset_left = 169.0
+offset_right = 499.0
+offset_bottom = 92.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme = ExtResource( 2 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+
+[node name="Home" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
+offset_left = 503.0
+offset_right = 551.0
+offset_bottom = 92.0
+size_flags_vertical = 3
+texture_normal = ExtResource( 7 )
+texture_pressed = ExtResource( 6 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 1 )
+anims/intro = SubResource( 2 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/PlayAgain" to="." method="_on_PlayAgain_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Levels" to="." method="_on_Levels_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Home" to="." method="_on_Home_pressed"]

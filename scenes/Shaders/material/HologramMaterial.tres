@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[ext_resource path="res://scenes/Shaders/Hologram2.tres" type="Shader" id=1]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/lines = 100
+shader_param/color1 = Plane( 0, 0, 1, 1 )
+shader_param/color2 = Plane( 0, 0, 0, 1 )
+shader_param/speed = 0.2
+shader_param/alpha = 0.5
+shader_param/noise_amount = 0.3
+shader_param/effect_factor = 0.45

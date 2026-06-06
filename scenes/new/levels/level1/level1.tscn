@@ -1,0 +1,76 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/new/FloatingObjects/SpaceStations/EnemyBase/EnemyBase.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/new/controls/Progress/Progress.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/new/levels/level1/level1.gd" type="Script" id=4]
+[ext_resource path="res://scenes/new/UI/ParallaxBackground/ParallaxBackground.tscn" type="PackedScene" id=7]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PackedVector2Array( 0, 0, 0, 0, -5175, -3075, 0, 0, 0, 0, -5170, 3120, 0, 0, 0, 0, 5500, 3175, 0, 0, 0, 0, 5480, -3060, 0, 0, 0, 0, -5175, -3130 )
+}
+
+[sub_resource type="Environment" id=2]
+background_mode = 4
+fog_enabled = true
+glow_enabled = true
+glow_blend_mode = 0
+glow_hdr_threshold = 2.0
+
+[node name="level1" type="Node2D"]
+script = ExtResource( 4 )
+kills_required = 250
+enemy_number = 20
+bullet_amount = 250
+enemy_shooting_time = 1
+lvl_index = 1
+enemy_timer = 0.5
+objects_timer = 10
+health_timer = 12
+LevelName = "Level1"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ParallaxBackground" parent="CanvasLayer" instance=ExtResource( 7 )]
+
+[node name="Progress" parent="CanvasLayer" instance=ExtResource( 2 )]
+layer = 100
+
+[node name="Path2D" type="Path2D" parent="CanvasLayer"]
+scale = Vector2( 0.2, 0.2 )
+curve = SubResource( 1 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="CanvasLayer/Path2D"]
+position = Vector2( -5174.99, -3130 )
+rotation = 3.09163
+offset = 34414.6
+
+[node name="Positionplayer" type="Marker2D" parent="CanvasLayer/Path2D/PathFollow2D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 2 )
+
+[node name="PlayerTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="ObjectS_Timer" type="Timer" parent="."]
+wait_time = 15.0
+autostart = true
+
+[node name="HealthCollectibleTimer" type="Timer" parent="."]
+wait_time = 6.0
+autostart = true
+
+[node name="BulletsTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="EnemyBase" parent="." instance=ExtResource( 1 )]
+position = Vector2( -4000, -2000 )
+
+[connection signal="timeout" from="PlayerTimer" to="." method="_on_PlayerTimer_timeout"]
+[connection signal="timeout" from="ObjectS_Timer" to="." method="_on_ObjectS_Timer_timeout"]
+[connection signal="timeout" from="HealthCollectibleTimer" to="." method="_on_CollectibleTimer_timeout"]
+[connection signal="timeout" from="BulletsTimer" to="." method="_on_BulletsTimer_timeout"]
