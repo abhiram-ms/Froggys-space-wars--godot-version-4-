@@ -90,8 +90,9 @@ BackgroundMusic="*res://scenes/new/Audio/BackgroundMusic.tscn"
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/stretch/mode="2d"
+window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+window/handheld/orientation=0
 
 [editor_plugins]
 
@@ -119,7 +120,4 @@ common/enable_pause_aware_picking=true
 renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_environment="res://default_env.tres"
-quality/driver/driver_name="GLES2"
-quality/driver/fallback_to_gles2=true
 vram_compression/import_etc=true
-gles2/compatibility/enable_high_float.Android=true
