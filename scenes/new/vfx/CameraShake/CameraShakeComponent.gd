@@ -76,6 +76,10 @@ func _on_timer_timeout():
 		0.1
 	)
 
+# Compatibility for old scene signal connection names that came from Godot 3.
+func _on_Timer_timeout():
+	_on_timer_timeout()
+
 func showBlood():
 	animator.play("showBlood")
 	await get_tree().create_timer(3.0, true).timeout
