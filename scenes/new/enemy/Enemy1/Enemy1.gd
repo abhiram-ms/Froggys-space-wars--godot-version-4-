@@ -93,6 +93,10 @@ func fire():
 func _on_attack_timer_timeout():
 	state = ATTACK
 
+# Compatibility for old scene signal connection names that came from Godot 3.
+func _on_Attack_timer_timeout():
+	_on_attack_timer_timeout()
+
 func addBulletCollectible():
 	var bullet_instance = Global.Collectbullets.instantiate()
 
@@ -137,6 +141,10 @@ func explode():
 func _on_life_time_timeout():
 	queue_free()
 
+# Compatibility for old scene signal connection names that came from Godot 3.
+func _on_LifeTime_timeout():
+	_on_life_time_timeout()
+
 func _on_area_2d_body_entered(body):
 	if body == Global.player:
 		body.takeDamage(Damage)
@@ -145,3 +153,7 @@ func _on_area_2d_body_entered(body):
 			Global.camera.shake(100)
 
 		completeExplotion()
+
+# Compatibility for old scene signal connection names that came from Godot 3.
+func _on_Area2D_body_entered(body):
+	_on_area_2d_body_entered(body)
