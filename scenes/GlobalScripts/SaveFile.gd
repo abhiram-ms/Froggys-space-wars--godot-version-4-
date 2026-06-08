@@ -36,76 +36,118 @@ var test_data: Dictionary = {
 
 
 func _ready() -> void:
-	if PlayService.GPGS:
-		PlayService.GPGS.connect(
-			"_on_game_saved_success",
-			Callable(self, "_on_game_saved_success")
-		)
-
-		PlayService.GPGS.connect(
-			"_on_game_saved_fail",
-			Callable(self, "_on_game_saved_fail")
-		)
-
-		PlayService.GPGS.connect(
-			"_on_game_load_success",
-			Callable(self, "_on_game_load_success")
-		)
-
-		PlayService.GPGS.connect(
-			"_on_game_load_fail",
-			Callable(self, "_on_game_load_fail")
-		)
-
-		PlayService.GPGS.connect(
-			"_on_create_new_snapshot",
-			Callable(self, "_on_create_new_snapshot")
-		)
-
+	if _has_gpgs():
+		_connect_gpgs_signals()
 	else:
-		push_error("Play service is not configured to store data")
+		print("Play service is not configured. SaveFile will use local saves only.")
 
-	# load local/mobile data
-	# load_data()
+	# Load local data immediately so menus/game scenes have valid data even
+	# when Google Play Services is not installed yet.
+	load_local_data()
+
+
+func _has_gpgs() -> bool:
+	return PlayService != null and PlayService.GPGS != null
+
+
+func _connect_gpgs_signals() -> void:
+	var signals_to_connect := {
+		"_on_game_saved_success": Callable(self, "_on_game_saved_success"),
+		"_on_game_saved_fail": Callable(self, "_on_game_saved_fail"),
+		"_on_game_load_success": Callable(self, "_on_game_load_success"),
+		"_on_game_load_fail": Callable(self, "_on_game_load_fail"),
+		"_on_create_new_snapshot": Callable(self, "_on_create_new_snapshot"),
+	}
+
+	for signal_name in signals_to_connect.keys():
+		if PlayService.GPGS.has_signal(signal_name) and not PlayService.GPGS.is_connected(signal_name, signals_to_connect[signal_name]):
+			PlayService.GPGS.connect(signal_name, signals_to_connect[signal_name])
+		else:
+			print("GPGS signal not available or already connected: %s" % signal_name)
 
 
 # =========================
 # SAVE DATA
 # =========================
-func save_data() -> void:
+func save_data(sync_cloud := true) -> void:
+	if gamedata.is_empty():
+		gamedata = initial_data.duplicate(true)
+
 	var file := FileAccess.open(SAVE_FILE, FileAccess.WRITE)
 	if file == null:
 		push_error("Failed to open save file")
 		return
+
 	file.store_var(gamedata)
 	file.close()
-	save_game()
+	print("Local save completed")
+
+	if sync_cloud:
+		save_game()
+
+
+# Backward-compatible Godot 3 style method name used by some older scripts.
+func saveData() -> void:
+	save_data()
 
 
 # =========================
 # LOAD DATA
 # =========================
 func load_data() -> void:
-	# Optional local save loading:
-	#
-	# if FileAccess.file_exists(SAVE_FILE):
-	# 	var file := FileAccess.open(SAVE_FILE, FileAccess.READ)
-	# 	if file:
-	# 		gamedata = file.get_var()
-	# 		file.close()
-	# else:
-	# 	load_play_store_data()
-	load_play_store_data()
+	# Local-first behavior: always load/create local save immediately.
+	load_local_data()
+
+	# Future GPGS behavior: when a compatible plugin exists, this can refresh
+	# local data from cloud. The game no longer depends on cloud loading to run.
+	if _has_gpgs():
+		load_play_store_data()
+
+
+# Backward-compatible Godot 3 style method name used by older scripts.
+func loadData() -> void:
+	load_data()
+
+
+func load_local_data() -> void:
+	if FileAccess.file_exists(SAVE_FILE):
+		var file := FileAccess.open(SAVE_FILE, FileAccess.READ)
+		if file == null:
+			push_error("Failed to read local save file. Loading initial data instead.")
+			gamedata = initial_data.duplicate(true)
+			return
+
+		var loaded_data = file.get_var()
+		file.close()
+
+		if loaded_data is Dictionary:
+			gamedata = _merge_with_initial_data(loaded_data)
+			print("Local save loaded")
+		else:
+			push_error("Local save data is invalid. Creating new save data.")
+			gamedata = initial_data.duplicate(true)
+			save_data(false)
+	else:
+		print("No local save found. Creating initial save data.")
+		gamedata = initial_data.duplicate(true)
+		save_data(false)
+
+
+func _merge_with_initial_data(loaded_data: Dictionary) -> Dictionary:
+	var merged_data := initial_data.duplicate(true)
+	for key in loaded_data.keys():
+		merged_data[key] = loaded_data[key]
+	return merged_data
 
 
 # =========================
 # PLAY STORE LOAD
 # =========================
 func load_play_store_data() -> void:
-	if PlayService.GPGS:
+	if _has_gpgs() and PlayService.GPGS.has_method("loadSnapshot"):
 		PlayService.GPGS.loadSnapshot("gamedata")
 	else:
-		push_error("No play service access to load data")
+		print("No Google Play cloud save available. Using local save.")
 
 
 # =========================
@@ -115,9 +157,12 @@ func delete_file() -> void:
 	if !FileAccess.file_exists(SAVE_FILE):
 		print("No file to delete")
 		return
+
 	var err := DirAccess.remove_absolute(SAVE_FILE)
 	if err == OK:
 		print("File deleted")
+		gamedata = initial_data.duplicate(true)
+		save_data(false)
 	else:
 		push_error("Failed to delete file")
 
@@ -126,60 +171,66 @@ func delete_file() -> void:
 # GOOGLE PLAY SAVE
 # =========================
 func save_game() -> void:
-	if PlayService.GPGS:
+	if _has_gpgs() and PlayService.GPGS.has_method("saveSnapshot"):
 		PlayService.GPGS.saveSnapshot(
 			"gamedata",
 			JSON.stringify(gamedata),
-			"Highscore " + str(gamedata["HighScore"])
+			"Highscore " + str(gamedata.get("HighScore", 0))
 		)
 	else:
-		push_error("No play services access to save data")
+		# This is expected while the project is running without a GPGS plugin.
+		print("Google Play cloud save unavailable. Local save kept.")
 
 
 func show_saved_games() -> void:
-	if PlayService.GPGS:
+	if _has_gpgs() and PlayService.GPGS.has_method("showSavedGames"):
 		PlayService.GPGS.showSavedGames(
 			"gamedata",
 			true,
 			true,
 			5
 		)
+	else:
+		print("Google Play saved games UI unavailable.")
 
 
 func load_game() -> void:
-	if PlayService.GPGS:
-		PlayService.GPGS.loadSnapshot("gamedata")
+	load_data()
+
+
+# Backward-compatible Godot 3 style method name.
+func loadGame() -> void:
+	load_game()
 
 
 # =========================
 # CALLBACKS
 # =========================
 func _on_game_saved_success() -> void:
-	print("Game saved successfully")
+	print("Game saved successfully to cloud")
 
 
 func _on_game_saved_fail() -> void:
-	push_error("Game saving failed")
+	push_error("Game cloud saving failed. Local save is still available.")
 
 
 func _on_game_load_success(data) -> void:
-	print("Load success")
+	print("Cloud save load success")
 	var received_data = JSON.parse_string(data)
 	if received_data == null:
-		print("No cloud save found, creating initial data")
-		gamedata = initial_data.duplicate(true)
-		save_data()
-
+		print("No cloud save found. Keeping local save data.")
+		if gamedata.is_empty():
+			gamedata = initial_data.duplicate(true)
+			save_data(false)
 	else:
-		print("Cloud save loaded")
-		gamedata = received_data
-		save_data()
+		print("Cloud save loaded. Updating local save.")
+		gamedata = _merge_with_initial_data(received_data)
+		save_data(false)
 
 
 func _on_game_load_fail() -> void:
-	push_error("Cannot connect to saved server data")
-	gamedata = initial_data.duplicate(true)
-	save_data()
+	push_error("Cannot connect to cloud save. Using local save data.")
+	load_local_data()
 
 
 @warning_ignore("shadowed_variable_base_class")
