@@ -94,7 +94,7 @@ func fire():
 			
 func FireBullet():
 	Livescounter.bullet_amount = Livescounter.bullet_amount-1
-	var bullet1_instance = Global.bullet.instance()
+	var bullet1_instance = Global.bullet.instantiate()
 	Global.camera.shake(20)
 	animation.play("gunFire")
 	get_parent().add_child(bullet1_instance)
@@ -104,7 +104,7 @@ func FireBullet():
 
 func FireLaserBullet():
 	Livescounter.bullet_amount = Livescounter.bullet_amount-1
-	var bullet1_instance = Global.bulletLaser.instance()
+	var bullet1_instance = Global.bulletLaser.instantiate()
 	Global.camera.shake(20)
 	animation.play("gunFire")
 	get_parent().add_child(bullet1_instance)
@@ -115,7 +115,7 @@ func FireLaserBullet():
 func fireLaser():
 	if laser_casting == false:
 		laser_casting = true
-		var laser_instance = Global.laser.instance()
+		var laser_instance = Global.laser.instantiate()
 		laser_instance.global_position = laserpos.global_position
 		add_child(laser_instance)
 		await get_tree().create_timer(10).timeout
@@ -174,9 +174,9 @@ func kill():
 	animation.stop()
 
 func takeScreenshot():
-	var image = get_viewport().get_texture().get_data()
+	var image = get_viewport().get_texture().get_image()
 	image.flip_y()
-	image.save_png("res://images/screenshot2.png")
+	image.save_png("user://screenshot2.png")
 
 func _exit_tree():
 	Global.player = null
