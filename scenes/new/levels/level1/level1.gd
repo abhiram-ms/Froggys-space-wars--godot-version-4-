@@ -42,22 +42,22 @@ func setTimers():
 func addPlayer():
 	if str(SaveFile.gamedata.SpaceShipCurrent) != "Null":
 		var player = Global.SpaceShips[SaveFile.gamedata.SpaceShipCurrent -1]
-		var player_instance = player.instance()
+		var player_instance = player.instantiate()
 		call_deferred("add_child", player_instance)
 	else:
 		var player = Global.SpaceShips[0]
-		var player_instance = player.instance()
+		var player_instance = player.instantiate()
 		call_deferred("add_child", player_instance)
-#	var player_instance = frog1.instance()
+#	var player_instance = frog1.instantiate()
 #	add_child(player_instance)
 #	var player = SaveFile.gamedata.SpaceShipCurrent
 #	var player_instance;
 #	if player == 1:
-#		player_instance = frog1.instance()
+#		player_instance = frog1.instantiate()
 #	elif player == 2:
-#		player_instance = frog2.instance()
+#		player_instance = frog2.instantiate()
 #	else:
-#		player_instance = frog1.instance()
+#		player_instance = frog1.instantiate()
 #	call_deferred("add_child", player_instance)
 
 
