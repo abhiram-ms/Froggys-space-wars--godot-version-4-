@@ -1,32 +1,48 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene format=3 uid="uid://de0j54l1s66gl"]
 
-[ext_resource path="res://scenes/Shaders/rotated_planet.tres" type="Shader" id=1]
-[ext_resource path="res://Assets/texture/texture5.png" type="Texture2D" id=2]
-[ext_resource path="res://scenes/new/FloatingObjects/rotatedplanets/RotatedPlanet.gd" type="Script" id=3]
-[ext_resource path="res://scenes/new/vfx/Explotion/explotion.tscn" type="PackedScene" id=5]
+[ext_resource type="Shader" uid="uid://bxxr6mev6gwpx" path="res://scenes/Shaders/rotated_planet.tres" id="1"]
+[ext_resource type="Script" uid="uid://c05o2gqw5u6p" path="res://scenes/new/FloatingObjects/rotatedplanets/RotatedPlanet.gd" id="3"]
+[ext_resource type="Texture2D" uid="uid://ckm37kc4x51ew" path="res://Assets/texture/life.png" id="4_tybly"]
+[ext_resource type="PackedScene" path="res://scenes/new/vfx/Explotion/explotion.tscn" id="5"]
 
-[sub_resource type="CircleShape2D" id=3]
+[sub_resource type="CircleShape2D" id="3"]
 radius = 62.0081
 
-[sub_resource type="ShaderMaterial" id=2]
-shader = ExtResource( 1 )
+[sub_resource type="ShaderMaterial" id="2"]
+shader = ExtResource("1")
 shader_parameter/aspect_ratio = 2.0
 shader_parameter/rotation_speed = 0.3
 shader_parameter/as_shadow = false
+shader_parameter/light_angle = -0.7
+shader_parameter/ambient_light = 0.28
+shader_parameter/light_strength = 1.15
+shader_parameter/atmosphere_color = Color(0, 0.75, 1, 1)
+shader_parameter/atmosphere_strength = 0.45
+shader_parameter/rim_power = 2.2
+shader_parameter/enable_clouds = true
+shader_parameter/cloud_color = Color(0.7, 1, 1, 1)
+shader_parameter/cloud_opacity = 0.25
+shader_parameter/cloud_scale = 8.0
+shader_parameter/cloud_speed = 0.08
+shader_parameter/contrast = 1.15
+shader_parameter/saturation = 1.2
+shader_parameter/glow_strength = 0.12
 
-[node name="RotatedPlanet" type="Area2D"]
+[node name="RotatedPlanet" type="Area2D" unique_id=1960358004]
 collision_layer = 13
 collision_mask = 13
-script = ExtResource( 3 )
-deathparticle = ExtResource( 5 )
+script = ExtResource("3")
+deathparticle = ExtResource("5")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 3 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1595519905]
+position = Vector2(-26, -30)
+shape = SubResource("3")
 
-[node name="Sprite3" type="Sprite2D" parent="."]
-material = SubResource( 2 )
-scale = Vector2( 0.232656, 0.230937 )
-texture = ExtResource( 2 )
+[node name="Sprite3" type="Sprite2D" parent="." unique_id=2027528694]
+material = SubResource("2")
+position = Vector2(-25, -31)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("4_tybly")
 
 [connection signal="area_entered" from="." to="." method="_on_Area2D_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_RotatedPlanet_body_entered"]

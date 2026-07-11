@@ -4,8 +4,69 @@
 code = "shader_type canvas_item;
 
 uniform float aspect_ratio = 2.0;
-uniform float rotation_speed = 0.3;
+uniform float rotation_speed = 0.0;
 uniform bool as_shadow = false;
+
+// Lighting
+uniform float light_angle = -0.7;
+uniform float ambient_light = 0.28;
+uniform float light_strength = 1.15;
+
+// Atmosphere / rim glow
+uniform vec4 atmosphere_color : source_color = vec4(0.0, 0.75, 1.0, 1.0);
+uniform float atmosphere_strength = 0.45;
+uniform float rim_power = 2.2;
+
+// Clouds
+uniform bool enable_clouds = true;
+uniform vec4 cloud_color : source_color = vec4(0.7, 1.0, 1.0, 1.0);
+uniform float cloud_opacity = 0.25;
+uniform float cloud_scale = 8.0;
+uniform float cloud_speed = 0.08;
+
+// Surface mood
+uniform float contrast = 1.15;
+uniform float saturation = 1.2;
+uniform float glow_strength = 0.12;
+
+// Simple procedural noise
+float hash(vec2 p) {
+	return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
+}
+
+float noise(vec2 p) {
+	vec2 i = floor(p);
+	vec2 f = fract(p);
+
+	float a = hash(i);
+	float b = hash(i + vec2(1.0, 0.0));
+	float c = hash(i + vec2(0.0, 1.0));
+	float d = hash(i + vec2(1.0, 1.0));
+
+	vec2 u = f * f * (3.0 - 2.0 * f);
+
+	return mix(a, b, u.x) +
+		(c - a) * u.y * (1.0 - u.x) +
+		(d - b) * u.x * u.y;
+}
+
+float fbm(vec2 p) {
+	float value = 0.0;
+	float amplitude = 0.5;
+
+	for (int i = 0; i < 4; i++) {
+		value += amplitude * noise(p);
+		p *= 2.0;
+		amplitude *= 0.5;
+	}
+
+	return value;
+}
+
+vec3 apply_saturation(vec3 color, float amount) {
+	float grey = dot(color, vec3(0.299, 0.587, 0.114));
+	return mix(vec3(grey), color, amount);
+}
 
 void fragment() {
 	float px = 2.0 * (UV.x - 0.5);
@@ -14,23 +75,58 @@ void fragment() {
 
 	if (radius > 1.0) {
 		COLOR = vec4(0.0);
-		return;
-	}
+	} else {
+		float z = sqrt(max(1.0 - radius, 0.0));
+		vec3 normal = normalize(vec3(px, py, z));
 
-	float safe_y = max(1.0 - py * py, 0.0001);
-	float sphere_x = asin(clamp(px / sqrt(safe_y), -1.0, 1.0)) * 2.0 / PI;
-	float sphere_y = asin(clamp(py, -1.0, 1.0)) * 2.0 / PI;
+		float safe_y = max(1.0 - py * py, 0.0001);
 
-	float planet_u = 0.5 * (sphere_x + 1.0) / aspect_ratio;
-	planet_u = fract(planet_u - TIME * rotation_speed);
+		float sphere_x = asin(clamp(px / sqrt(safe_y), -1.0, 1.0)) * 2.0 / PI;
+		float sphere_y = asin(clamp(py, -1.0, 1.0)) * 2.0 / PI;
 
-	float planet_v = 0.5 * (sphere_y + 1.0);
-	planet_v = clamp(planet_v, 0.0, 1.0);
+		float planet_u = 0.5 * (sphere_x + 1.0) / aspect_ratio;
+		planet_u = fract(planet_u - TIME * rotation_speed);
 
-	COLOR = texture(TEXTURE, vec2(planet_u, planet_v));
+		float planet_v = 0.5 * (sphere_y + 1.0);
+		planet_v = clamp(planet_v, 0.0, 1.0);
 
-	if (as_shadow) {
-		COLOR.rgb = vec3(0.0);
-		COLOR.a *= 0.9;
+		vec4 base = texture(TEXTURE, vec2(planet_u, planet_v));
+
+		vec3 light_dir = normalize(vec3(cos(light_angle), sin(light_angle) * 0.35, 0.8));
+		float light_amount = clamp(dot(normal, light_dir), 0.0, 1.0);
+
+		float lighting = ambient_light + light_amount * light_strength;
+		vec3 color = base.rgb * lighting;
+
+		// Add moving cloud/noise layer
+		if (enable_clouds) {
+			vec2 cloud_uv = vec2(
+				fract(planet_u + TIME * cloud_speed),
+				planet_v
+			);
+
+			float cloud_noise = fbm(cloud_uv * cloud_scale);
+			float clouds = smoothstep(0.52, 0.82, cloud_noise);
+
+			color = mix(color, cloud_color.rgb, clouds * cloud_opacity * light_amount);
+		}
+
+		// Fake atmospheric rim glow
+		float rim = pow(1.0 - z, rim_power);
+		color += atmosphere_color.rgb * rim * atmosphere_strength;
+
+		// Slight inner glow on lit side
+		color += base.rgb * glow_strength * light_amount;
+
+		// Contrast and saturation
+		color = (color - 0.5) * contrast + 0.5;
+		color = apply_saturation(color, saturation);
+
+		if (as_shadow) {
+			color = vec3(0.0);
+			base.a *= 0.9;
+		}
+
+		COLOR = vec4(color, base.a);
 	}
 }"

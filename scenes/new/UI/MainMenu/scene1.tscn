@@ -1,180 +1,295 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene format=3 uid="uid://ce5lfu5bwpcda"]
 
-[ext_resource path="res://scenes/Shaders/material/HologramMaterial.tres" type="Material" id=1]
-[ext_resource path="res://scenes/new/UI/ParallaxBackground/ParallaxBackground.tscn" type="PackedScene" id=2]
-[ext_resource path="res://FONTS/neo_scifi_v20.ttf" type="FontFile" id=3]
-[ext_resource path="res://scenes/new/UI/MainMenu/scene1.gd" type="Script" id=4]
-[ext_resource path="res://FONTS/game_theme.tres" type="Theme" id=5]
-[ext_resource path="res://scenes/new/FloatingObjects/rotatedplanets/RotatedPlanet.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Audio/swoosh-12-46747.mp3" type="AudioStream" id=8]
-[ext_resource path="res://Assets/icons/Settings.png" type="Texture2D" id=12]
-[ext_resource path="res://Assets/icons/Settings_pressed.png" type="Texture2D" id=14]
-[ext_resource path="res://Assets/icons/exit.png" type="Texture2D" id=15]
+[ext_resource type="Material" uid="uid://c0cy48k0kxwrh" path="res://scenes/Shaders/material/HologramMaterial.tres" id="1"]
+[ext_resource type="PackedScene" uid="uid://crwqbcgex3pg6" path="res://scenes/new/UI/ParallaxBackground/ParallaxBackground.tscn" id="2"]
+[ext_resource type="FontFile" uid="uid://cxsbxv8bq1uds" path="res://FONTS/neo_scifi_v20.ttf" id="3"]
+[ext_resource type="Script" uid="uid://dvbrrktkc20to" path="res://scenes/new/UI/MainMenu/scene1.gd" id="4"]
+[ext_resource type="Theme" uid="uid://ddg8rlhh8fk06" path="res://FONTS/game_theme.tres" id="5"]
+[ext_resource type="PackedScene" uid="uid://de0j54l1s66gl" path="res://scenes/new/FloatingObjects/rotatedplanets/RotatedPlanet.tscn" id="7"]
+[ext_resource type="AudioStream" uid="uid://gwd6ipdpsmmx" path="res://Audio/swoosh-12-46747.mp3" id="8"]
+[ext_resource type="Shader" uid="uid://bxxr6mev6gwpx" path="res://scenes/Shaders/rotated_planet.tres" id="11_wia0t"]
+[ext_resource type="Texture2D" uid="uid://4n1bbunv42og" path="res://Assets/icons/Settings.png" id="12"]
+[ext_resource type="Texture2D" uid="uid://ckvwvdods2tj1" path="res://Assets/icons/Settings_pressed.png" id="14"]
+[ext_resource type="Texture2D" uid="uid://1mdl8it481ky" path="res://Assets/icons/exit.png" id="15"]
 
-[sub_resource type="FontFile" id=1]
-size = 50
-outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 3 )
+[sub_resource type="FontFile" id="1"]
+fallbacks = Array[Font]([ExtResource("3")])
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/17/0/ascent = 0.0
+cache/0/17/0/descent = 0.0
+cache/0/17/0/underline_position = 0.0
+cache/0/17/0/underline_thickness = 0.0
+cache/0/17/0/scale = 1.0
+cache/0/18/0/ascent = 0.0
+cache/0/18/0/descent = 0.0
+cache/0/18/0/underline_position = 0.0
+cache/0/18/0/underline_thickness = 0.0
+cache/0/18/0/scale = 1.0
+cache/0/19/0/ascent = 0.0
+cache/0/19/0/descent = 0.0
+cache/0/19/0/underline_position = 0.0
+cache/0/19/0/underline_thickness = 0.0
+cache/0/19/0/scale = 1.0
+cache/0/20/0/ascent = 0.0
+cache/0/20/0/descent = 0.0
+cache/0/20/0/underline_position = 0.0
+cache/0/20/0/underline_thickness = 0.0
+cache/0/20/0/scale = 1.0
+cache/0/21/0/ascent = 0.0
+cache/0/21/0/descent = 0.0
+cache/0/21/0/underline_position = 0.0
+cache/0/21/0/underline_thickness = 0.0
+cache/0/21/0/scale = 1.0
+cache/0/22/0/ascent = 0.0
+cache/0/22/0/descent = 0.0
+cache/0/22/0/underline_position = 0.0
+cache/0/22/0/underline_thickness = 0.0
+cache/0/22/0/scale = 1.0
+cache/0/23/0/ascent = 0.0
+cache/0/23/0/descent = 0.0
+cache/0/23/0/underline_position = 0.0
+cache/0/23/0/underline_thickness = 0.0
+cache/0/23/0/scale = 1.0
+cache/0/24/0/ascent = 0.0
+cache/0/24/0/descent = 0.0
+cache/0/24/0/underline_position = 0.0
+cache/0/24/0/underline_thickness = 0.0
+cache/0/24/0/scale = 1.0
+cache/0/25/0/ascent = 0.0
+cache/0/25/0/descent = 0.0
+cache/0/25/0/underline_position = 0.0
+cache/0/25/0/underline_thickness = 0.0
+cache/0/25/0/scale = 1.0
+cache/0/26/0/ascent = 0.0
+cache/0/26/0/descent = 0.0
+cache/0/26/0/underline_position = 0.0
+cache/0/26/0/underline_thickness = 0.0
+cache/0/26/0/scale = 1.0
+cache/0/27/0/ascent = 0.0
+cache/0/27/0/descent = 0.0
+cache/0/27/0/underline_position = 0.0
+cache/0/27/0/underline_thickness = 0.0
+cache/0/27/0/scale = 1.0
+cache/0/28/0/ascent = 0.0
+cache/0/28/0/descent = 0.0
+cache/0/28/0/underline_position = 0.0
+cache/0/28/0/underline_thickness = 0.0
+cache/0/28/0/scale = 1.0
+cache/0/29/0/ascent = 0.0
+cache/0/29/0/descent = 0.0
+cache/0/29/0/underline_position = 0.0
+cache/0/29/0/underline_thickness = 0.0
+cache/0/29/0/scale = 1.0
+cache/0/30/0/ascent = 0.0
+cache/0/30/0/descent = 0.0
+cache/0/30/0/underline_position = 0.0
+cache/0/30/0/underline_thickness = 0.0
+cache/0/30/0/scale = 1.0
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="LabelSettings" id="LabelSettings_c1o2x"]
+font = ExtResource("3")
+font_size = 50
+font_color = Color(0.22352941, 0.16470589, 0.34901962, 1)
+
+[sub_resource type="Animation" id="3"]
 length = 0.001
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("CanvasLayer/VBoxContainer:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0 ),
-"transitions": PackedFloat32Array( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ) ]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("CanvasLayer/Label:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PackedFloat32Array( 0 ),
-"transitions": PackedFloat32Array( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0.313726 ) ]
+"values": [Color(1, 1, 1, 0.313726)]
 }
 tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("CanvasLayer/Label:anchor_top")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
 tracks/2/keys = {
-"times": PackedFloat32Array( 0 ),
-"transitions": PackedFloat32Array( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ 0.1 ]
+"values": [0.1]
 }
 tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
 tracks/3/path = NodePath("CanvasLayer/Label:anchor_bottom")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
 tracks/3/keys = {
-"times": PackedFloat32Array( 0 ),
-"transitions": PackedFloat32Array( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ 0.1 ]
+"values": [0.1]
 }
 tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
 tracks/4/path = NodePath("CanvasLayer/HBoxContainer:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
 tracks/4/keys = {
-"times": PackedFloat32Array( 0 ),
-"transitions": PackedFloat32Array( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ) ]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
 tracks/5/path = NodePath("RotatedPlanet:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
 tracks/5/keys = {
-"times": PackedFloat32Array( 0 ),
-"transitions": PackedFloat32Array( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector2( 0, 0 ) ]
+"values": [Vector2(0, 0)]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id="4"]
 resource_name = "intro"
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("CanvasLayer/VBoxContainer:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0, 0.4, 0.7 ),
-"transitions": PackedFloat32Array( 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.4, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.156863 ), Color( 1, 1, 1, 1 ) ]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.156863), Color(1, 1, 1, 1)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("CanvasLayer/Label:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PackedFloat32Array( 0, 0.6, 0.9 ),
-"transitions": PackedFloat32Array( 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.156863 ), Color( 1, 1, 1, 1 ) ]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.156863), Color(1, 1, 1, 1)]
 }
 tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("CanvasLayer/Label:anchor_top")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
 tracks/2/keys = {
-"times": PackedFloat32Array( 0, 0.9, 1 ),
-"transitions": PackedFloat32Array( 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [ 0.1, 0.0, 0.0 ]
+"values": [0.1, 0.0, 0.0]
 }
 tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
 tracks/3/path = NodePath("CanvasLayer/Label:anchor_bottom")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
 tracks/3/keys = {
-"times": PackedFloat32Array( 0, 0.9, 1 ),
-"transitions": PackedFloat32Array( 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [ 0.1, 0.0, 0.0 ]
+"values": [0.1, 0.0, 0.0]
 }
 tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
 tracks/4/path = NodePath("CanvasLayer/HBoxContainer:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
 tracks/4/keys = {
-"times": PackedFloat32Array( 0, 0.6, 1 ),
-"transitions": PackedFloat32Array( 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.6, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.317647 ), Color( 1, 1, 1, 1 ) ]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.317647), Color(1, 1, 1, 1)]
 }
 tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
 tracks/5/path = NodePath("RotatedPlanet:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
 tracks/5/keys = {
-"times": PackedFloat32Array( 0, 0.6 ),
-"transitions": PackedFloat32Array( 1, 1 ),
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 0, 720 ), Vector2( 1280, 720 ) ]
+"values": [Vector2(0, 720), Vector2(1280, 720)]
 }
 
-[node name="Main" type="Node2D"]
-position = Vector2( 0, 1 )
-script = ExtResource( 4 )
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2lgcw"]
+_data = {
+&"RESET": SubResource("3"),
+&"intro": SubResource("4")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rvkii"]
+shader = ExtResource("11_wia0t")
+shader_parameter/aspect_ratio = 2.0
+shader_parameter/rotation_speed = 0.0
+shader_parameter/as_shadow = false
+shader_parameter/light_angle = -0.7
+shader_parameter/ambient_light = 0.28
+shader_parameter/light_strength = 1.15
+shader_parameter/atmosphere_color = Color(0, 0.75, 1, 1)
+shader_parameter/atmosphere_strength = 0.45
+shader_parameter/rim_power = 2.2
+shader_parameter/enable_clouds = true
+shader_parameter/cloud_color = Color(0.7, 1, 1, 1)
+shader_parameter/cloud_opacity = 0.25
+shader_parameter/cloud_scale = 8.0
+shader_parameter/cloud_speed = 0.08
+shader_parameter/contrast = 1.15
+shader_parameter/saturation = 1.2
+shader_parameter/glow_strength = 0.12
+
+[node name="Main" type="Node2D" unique_id=86013761]
+position = Vector2(0, 1)
+script = ExtResource("4")
 speed = 50
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1595481715]
 
-[node name="Label" type="Label" parent="CanvasLayer"]
-modulate = Color( 1, 1, 1, 0.313726 )
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=1605480465]
+modulate = Color(1, 1, 1, 0.313726)
+anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.1
 anchor_right = 0.5
@@ -183,12 +298,16 @@ offset_left = -277.0
 offset_top = 28.0
 offset_right = 282.0
 offset_bottom = 88.0
-theme_override_colors/font_color = Color( 0.431373, 0.411765, 0.54902, 1 )
-theme_override_fonts/font = SubResource( 1 )
+theme_override_colors/font_color = Color(0.431373, 0.411765, 0.54902, 1)
+theme_override_fonts/font = SubResource("1")
 text = "Froggys Space Wars"
+label_settings = SubResource("LabelSettings_c1o2x")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
-modulate = Color( 1, 1, 1, 0 )
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=1594597542]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -202,44 +321,34 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 50
 
-[node name="Play" type="Button" parent="CanvasLayer/VBoxContainer"]
-material = ExtResource( 1 )
-offset_right = 278.0
-offset_bottom = 60.0
-theme = ExtResource( 5 )
+[node name="Play" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=1515105544]
+material = ExtResource("1")
+layout_mode = 2
+theme = ExtResource("5")
 text = "Play"
-align = 0
 
-[node name="Levels" type="Button" parent="CanvasLayer/VBoxContainer"]
-material = ExtResource( 1 )
-offset_top = 110.0
-offset_right = 278.0
-offset_bottom = 170.0
-theme = ExtResource( 5 )
+[node name="Levels" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=2059074233]
+material = ExtResource("1")
+layout_mode = 2
+theme = ExtResource("5")
 text = "Levels"
-align = 0
 
-[node name="Story" type="Button" parent="CanvasLayer/VBoxContainer"]
-material = ExtResource( 1 )
-offset_top = 220.0
-offset_right = 278.0
-offset_bottom = 280.0
+[node name="Story" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=438620059]
+material = ExtResource("1")
+layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource( 5 )
+theme = ExtResource("5")
 text = "Stories"
-align = 0
 
-[node name="Inventory" type="Button" parent="CanvasLayer/VBoxContainer"]
-material = ExtResource( 1 )
-offset_top = 330.0
-offset_right = 278.0
-offset_bottom = 390.0
-theme = ExtResource( 5 )
+[node name="Inventory" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=1480292687]
+material = ExtResource("1")
+layout_mode = 2
+theme = ExtResource("5")
 text = "Inventory"
-align = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
-modulate = Color( 1, 1, 1, 0 )
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=1804289267]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -250,35 +359,32 @@ offset_bottom = -37.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Exit" type="TextureButton" parent="CanvasLayer/HBoxContainer"]
-offset_right = 50.0
-offset_bottom = 48.0
+[node name="Exit" type="TextureButton" parent="CanvasLayer/HBoxContainer" unique_id=1447746811]
+layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 0
-theme = ExtResource( 5 )
-texture_normal = ExtResource( 15 )
-texture_pressed = ExtResource( 15 )
+theme = ExtResource("5")
+texture_normal = ExtResource("15")
+texture_pressed = ExtResource("15")
 
-[node name="Settings" type="TextureButton" parent="CanvasLayer/HBoxContainer"]
-offset_left = 1036.0
-offset_right = 1080.0
-offset_bottom = 43.0
+[node name="Settings" type="TextureButton" parent="CanvasLayer/HBoxContainer" unique_id=1192381235]
+layout_mode = 2
 size_flags_vertical = 0
-theme = ExtResource( 5 )
-texture_normal = ExtResource( 14 )
-texture_pressed = ExtResource( 12 )
+theme = ExtResource("5")
+texture_normal = ExtResource("14")
+texture_pressed = ExtResource("12")
 
-[node name="ParallaxBackground" parent="." instance=ExtResource( 2 )]
+[node name="ParallaxBackground" parent="." unique_id=1574842890 instance=ExtResource("2")]
 
-[node name="Animation" type="AnimationPlayer" parent="."]
-anims/RESET = SubResource( 3 )
-anims/intro = SubResource( 4 )
+[node name="Animation" type="AnimationPlayer" parent="." unique_id=807021805]
+libraries/ = SubResource("AnimationLibrary_2lgcw")
 
-[node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 8 )
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=704898308]
+stream = ExtResource("8")
 
-[node name="RotatedPlanet" parent="." instance=ExtResource( 7 )]
-scale = Vector2( 5, 5 )
+[node name="RotatedPlanet" parent="." unique_id=829504984 instance=ExtResource("7")]
+material = SubResource("ShaderMaterial_rvkii")
+scale = Vector2(5, 5)
 
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Play" to="." method="_on_Play_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Levels" to="." method="_on_Levels_pressed"]
