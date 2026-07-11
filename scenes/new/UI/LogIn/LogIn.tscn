@@ -1,12 +1,17 @@
 [gd_scene format=3 uid="uid://hit47kv11ept"]
 
-[ext_resource type="PackedScene" path="res://scenes/new/UI/ParallaxBackground/ParallaxBackground.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://crwqbcgex3pg6" path="res://scenes/new/UI/ParallaxBackground/ParallaxBackground.tscn" id="1"]
 [ext_resource type="Script" uid="uid://ca1luwtgx1ae7" path="res://scenes/new/UI/LogIn/LogIn.gd" id="2"]
 [ext_resource type="Theme" uid="uid://b7vs6vq7i01xy" path="res://FONTS/intro.tres" id="3"]
 [ext_resource type="Material" path="res://scenes/Shaders/material/HologramMaterial.tres" id="4"]
 [ext_resource type="Theme" uid="uid://c4w0eyjpxwiyd" path="res://FONTS/button_theme.tres" id="5"]
+[ext_resource type="FontFile" uid="uid://cxsbxv8bq1uds" path="res://FONTS/neo_scifi_v20.ttf" id="5_yxamh"]
 [ext_resource type="Theme" uid="uid://cub5dpdwl4l3h" path="res://FONTS/label_theme.tres" id="6"]
 [ext_resource type="AudioStream" uid="uid://dfobp2dsiyqye" path="res://Audio/glitch1-6219.mp3" id="7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0bj1r"]
+font = ExtResource("5_yxamh")
+font_size = 70
 
 [sub_resource type="Animation" id="1"]
 length = 0.001
@@ -97,38 +102,50 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("note:percent_visible")
+tracks/7/path = NodePath("AudioStreamPlayer2D:playing")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [false]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Intro:percent_visible")
+tracks/8/path = NodePath("Intro:visible_ratio")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [1.0]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/9/path = NodePath("note:visible_ratio")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [false]
+"values": [0.0]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("LogIn:disabled")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="2"]
@@ -156,7 +173,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.4, 1, 1.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -168,7 +185,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 1.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true, false]
+"values": [true, true]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -189,10 +206,10 @@ tracks/4/path = NodePath("note:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 1.1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1.000001),
 "update": 1,
-"values": [false, true]
+"values": [true]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -201,58 +218,70 @@ tracks/5/path = NodePath("LogIn:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 1.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.7, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [false, true]
+"values": [false, true, false, true]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("note:percent_visible")
+tracks/6/path = NodePath("ColorRect:visible")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(1.1, 1.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 1.0]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("Intro:percent_visible")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0, 0.6, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [0.0, 0.0, 1.0]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("ColorRect:visible")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
 "times": PackedFloat32Array(0, 1.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, true]
 }
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("AudioStreamPlayer2D:playing")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
 "times": PackedFloat32Array(0, 1.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Intro:visible_ratio")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.7, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.313, 0.807, 1.0, 1.0]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("note:visible_ratio")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.33333334, 0.53333336, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.222, 0.705, 1.0]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("LogIn:disabled")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0.7, 0.9, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1xplj"]
@@ -260,6 +289,10 @@ _data = {
 &"RESET": SubResource("1"),
 &"intro": SubResource("2")
 }
+
+[sub_resource type="LabelSettings" id="LabelSettings_xioq3"]
+font = ExtResource("5_yxamh")
+font_size = 30
 
 [node name="LogIn" type="Control" unique_id=640239726]
 layout_mode = 3
@@ -299,6 +332,10 @@ offset_right = 535.5
 offset_bottom = 101.5
 theme = ExtResource("3")
 text = "MadFroggys"
+label_settings = SubResource("LabelSettings_0bj1r")
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1748702486]
 libraries/ = SubResource("AnimationLibrary_1xplj")
@@ -313,20 +350,27 @@ offset_right = 1004.0
 offset_bottom = 117.0
 theme = ExtResource("6")
 text = "Its Nice to see you again captain we have a mission to win"
+label_settings = SubResource("LabelSettings_xioq3")
+visible_characters = 0
+visible_ratio = 0.0
 
 [node name="LogIn" type="Button" parent="." unique_id=463621821]
 visible = false
 material = ExtResource("4")
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -560.0
 offset_top = -202.0
-offset_right = -124.0
+offset_right = -207.0
 offset_bottom = -142.0
+grow_horizontal = 0
+grow_vertical = 0
 theme = ExtResource("5")
+disabled = true
 text = "Initiate Launch"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1098364537]
