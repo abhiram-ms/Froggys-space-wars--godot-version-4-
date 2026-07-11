@@ -67,4 +67,4 @@ rotation = 1.57438
 
 [node name="Position" type="Marker2D" parent="PathObjects/ObjectFollow"]
 
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
