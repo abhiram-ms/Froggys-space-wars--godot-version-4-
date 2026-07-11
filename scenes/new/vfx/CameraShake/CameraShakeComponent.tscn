@@ -47,8 +47,6 @@ _data = {
 current = true
 script = ExtResource( 1 )
 
-[node name="Tween" type="Tween" parent="."]
-
 [node name="Timer" type="Timer" parent="."]
 
 [node name="animator" type="AnimationPlayer" parent="."]
