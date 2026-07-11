@@ -9,12 +9,12 @@
 
 [sub_resource type="ShaderMaterial" id=6]
 shader = ExtResource( 4 )
-shader_param/baseColor = Color( 0.3058, 0.835, 0.96, 1 )
-shader_param/speed = 0.5
-shader_param/linesColor = Color( 0.633232, 0.910156, 0.555693, 1 )
-shader_param/linesColorIntensity = 5.0
-shader_param/hologramTextureTiling = Vector2( 1, 5 )
-shader_param/hologramTexture = ExtResource( 5 )
+shader_parameter/baseColor = Color( 0.3058, 0.835, 0.96, 1 )
+shader_parameter/speed = 0.5
+shader_parameter/linesColor = Color( 0.633232, 0.910156, 0.555693, 1 )
+shader_parameter/linesColorIntensity = 5.0
+shader_parameter/hologramTextureTiling = Vector2( 1, 5 )
+shader_parameter/hologramTexture = ExtResource( 5 )
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 231.5, 187.5 )
