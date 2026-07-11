@@ -166,6 +166,4 @@ anchor_bottom = 1.0
 wait_time = 10.0
 one_shot = true
 
-[node name="Tween" type="Tween" parent="."]
-
 [connection signal="timeout" from="ShaderTimer" to="." method="_on_ShaderTimer_timeout"]
