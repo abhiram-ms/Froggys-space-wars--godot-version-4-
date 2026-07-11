@@ -166,4 +166,4 @@ anchor_bottom = 1.0
 wait_time = 10.0
 one_shot = true
 
-[connection signal="timeout" from="ShaderTimer" to="." method="_on_ShaderTimer_timeout"]
+[connection signal="timeout" from="ShaderTimer" to="." method="_on_shader_timer_timeout"]
