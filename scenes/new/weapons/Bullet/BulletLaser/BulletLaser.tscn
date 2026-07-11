@@ -8,7 +8,7 @@
 
 [sub_resource type="ShaderMaterial" id=4]
 shader = ExtResource( 3 )
-shader_param/scale_uniform = null
+shader_parameter/scale_uniform = null
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 26.9996
