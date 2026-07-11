@@ -30,7 +30,7 @@ func activateShader():
 	print(shaders[random])
 	shaderTimer.start()
 	
-func _on_ShaderTimer_timeout():
+func _on_shader_timer_timeout():
 	disableVisibility()
 
 func disableVisibility():
