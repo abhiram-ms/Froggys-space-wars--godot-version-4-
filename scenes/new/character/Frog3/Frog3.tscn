@@ -7,13 +7,13 @@
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 4 )
-shader_param/lines = 100
-shader_param/color1 = Plane( 0, 0, 1, 1 )
-shader_param/color2 = Plane( 0, 0, 0, 1 )
-shader_param/speed = 0.4
-shader_param/alpha = 0.5
-shader_param/noise_amount = 0.05
-shader_param/effect_factor = 0.4
+shader_parameter/lines = 100
+shader_parameter/color1 = Plane( 0, 0, 1, 1 )
+shader_parameter/color2 = Plane( 0, 0, 0, 1 )
+shader_parameter/speed = 0.4
+shader_parameter/alpha = 0.5
+shader_parameter/noise_amount = 0.05
+shader_parameter/effect_factor = 0.4
 
 [sub_resource type="Animation" id=2]
 resource_name = "fireduty"
