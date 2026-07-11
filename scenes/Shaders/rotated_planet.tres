@@ -8,31 +8,29 @@ uniform float rotation_speed = 0.3;
 uniform bool as_shadow = false;
 
 void fragment() {
-
 	float px = 2.0 * (UV.x - 0.5);
 	float py = 2.0 * (UV.y - 0.5);
+	float radius = px * px + py * py;
 
-	if (px * px + py * py > 1.0) {
+	if (radius > 1.0) {
+		COLOR = vec4(0.0);
+		return;
+	}
 
-		// Outside of sphere
-		COLOR.a = 0.0;
+	float safe_y = max(1.0 - py * py, 0.0001);
+	float sphere_x = asin(clamp(px / sqrt(safe_y), -1.0, 1.0)) * 2.0 / PI;
+	float sphere_y = asin(clamp(py, -1.0, 1.0)) * 2.0 / PI;
 
-	} else {
+	float planet_u = 0.5 * (sphere_x + 1.0) / aspect_ratio;
+	planet_u = fract(planet_u - TIME * rotation_speed);
 
-		px = asin(px / sqrt(1.0 - py * py)) * 2.0 / PI;
-		py = asin(py) * 2.0 / PI;
+	float planet_v = 0.5 * (sphere_y + 1.0);
+	planet_v = clamp(planet_v, 0.0, 1.0);
 
-		COLOR = texture(
-			TEXTURE,
-			vec2(
-				0.5 * (px + 1.0) / aspect_ratio - TIME * rotation_speed,
-				0.5 * (py + 1.0)
-			)
-		);
+	COLOR = texture(TEXTURE, vec2(planet_u, planet_v));
 
-		if (as_shadow) {
-			COLOR.rgb = vec3(0.0);
-			COLOR.a *= 0.9;
-		}
+	if (as_shadow) {
+		COLOR.rgb = vec3(0.0);
+		COLOR.a *= 0.9;
 	}
 }"
